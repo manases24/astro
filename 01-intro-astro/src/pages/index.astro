@@ -1,16 +1,36 @@
 ---
+import Navbar from "../components/Navbar.astro";
 
+// Server only
+// Component script: aquí se escribe código
+const name = "Lola";
+const title = "Home";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro | {title}</title>
+  </head>
+  <body>
+    <Navbar />
+    <h1>Astro {name}</h1>
+    <p id="current-item">Momento actual real:</p>
+    <footer>Año: 2023</footer>
+
+    <script>
+      // Client only
+      const footer = document.querySelector("footer") as HTMLParagraphElement;
+      const currentTimeParagraph = document.querySelector(
+        "#current-item"
+      ) as HTMLParagraphElement;
+      const currentYear: number = new Date().getFullYear();
+
+      footer.innerText = `Año: ${currentYear}`;
+      currentTimeParagraph.innerText = `Momento actual real: ${new Date().toLocaleTimeString()}`;
+    </script>
+  </body>
 </html>

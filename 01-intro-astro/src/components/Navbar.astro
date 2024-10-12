@@ -1,0 +1,18 @@
+---
+const navItems = [
+  { path: "/", text: "Home" },
+  { path: "/about", text: "About" },
+];
+---
+
+<nav
+  class="flex bg-slate-900 shadow dark:bg-slate-900 p-2 m-2 rounded text-white"
+>
+  {
+    navItems.map(({ path, text }) => (
+      <a href={path} class="mr-4">
+        {text}
+      </a>
+    ))
+  }
+</nav>
