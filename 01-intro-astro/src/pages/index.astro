@@ -8,17 +8,14 @@ const name = "Lola";
 <MainLayout title="Home" ;>
   <h1>Astro {name}</h1>
   <p id="current-item">Momento actual real:</p>
-  <footer>Año: 2023</footer>
 
   <script>
     // Client only
-    const footer = document.querySelector("footer") as HTMLParagraphElement;
     const currentTimeParagraph = document.querySelector(
       "#current-item"
     ) as HTMLParagraphElement;
     const currentYear: number = new Date().getFullYear();
 
-    footer.innerText = `Año: ${currentYear}`;
     currentTimeParagraph.innerText = `Momento actual real: ${new Date().toLocaleTimeString()}`;
   </script>
 </MainLayout>
