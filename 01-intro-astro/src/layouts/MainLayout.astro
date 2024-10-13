@@ -1,5 +1,7 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import Navbar from "../components/Navbar.astro";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -15,6 +17,10 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro | {title}</title>
+
+    <!-- https://docs.astro.build/en/guides/view-transitions/ -->
+    <!-- Con ViewTransitions nuestra app luce como un SPA -->
+    <ViewTransitions />
   </head>
   <body>
     <Navbar />
