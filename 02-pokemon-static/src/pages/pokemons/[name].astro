@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+
+// La función getStaticPaths en Astro se utiliza para definir qué rutas dinámicas deben ser generadas de manera estática en el tiempo de compilación.
+// Similar a Next.js, pero adaptado a la forma en que Astro trabaja con el contenido estático
+// https://docs.astro.build/en/reference/api-reference/#getstaticpaths
+// Con getStaticPaths creo en BUILD TIME esto argumentos dinamicos
+// Solo estas paginas van a existir, las demas daran 404
+// Definir rutas estáticas dinámicamente
+export const getStaticPaths = (() => {
+  // Definir los nombres de los Pokémon que se generarán como rutas estáticas
+  return [{ params: { name: "beedrill" } }, { params: { name: "pidgeotto" } }];
+}) satisfies GetStaticPaths;
+
+// Acceder al parámetro dinámico 'name' desde Astro.params
+const { name } = Astro.params;
+---
+
+<MainLayout title="Algun Pokemon">
+  <section class="mt-10 mx-10 flex flex-col justify-center items-center">
+    <div>
+      <a href="/">Regresar</a>
+      <h1 class="text-5xl capitalize">{name}</h1>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  a {
+    @apply hover:underline text-blue-500;
+  }
+</style>

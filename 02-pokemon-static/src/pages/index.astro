@@ -13,7 +13,7 @@ console.log(data);
   <h1 class="text-3xl text-blue-500">Listado de Pokemons</h1>
   <hr />
   <section
-    class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4"
+    class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-5"
     aria-label="Listado de Pokemons"
   >
     {data.results.map((pokemon) => <PokemonCard {...pokemon} />)}
