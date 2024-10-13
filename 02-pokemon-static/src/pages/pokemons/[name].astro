@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro";
 import MainLayout from "../../layouts/MainLayout.astro";
+import PokemonCard from "../../components/pokemons/PokemonCard.astro";
 
 // La función getStaticPaths en Astro se utiliza para definir qué rutas dinámicas deben ser generadas de manera estática en el tiempo de compilación.
 // Similar a Next.js, pero adaptado a la forma en que Astro trabaja con el contenido estático
@@ -10,11 +11,27 @@ import MainLayout from "../../layouts/MainLayout.astro";
 // Definir rutas estáticas dinámicamente
 export const getStaticPaths = (() => {
   // Definir los nombres de los Pokémon que se generarán como rutas estáticas
-  return [{ params: { name: "beedrill" } }, { params: { name: "pidgeotto" } }];
+  return [
+    {
+      params: { name: "beedrill" },
+      props: {
+        name: "beedrill",
+        url: "https://pokeapi.co/api/v2/pokemon/15/",
+      },
+    },
+    {
+      params: { name: "pidgeotto" },
+      props: {
+        name: "pidgeotto",
+        url: "https://pokeapi.co/api/v2/pokemon/17/",
+      },
+    },
+  ];
 }) satisfies GetStaticPaths;
 
 // Acceder al parámetro dinámico 'name' desde Astro.params
 const { name } = Astro.params;
+const { url } = Astro.props;
 ---
 
 <MainLayout title="Algun Pokemon">
@@ -23,6 +40,7 @@ const { name } = Astro.params;
       <a href="/">Regresar</a>
       <h1 class="text-5xl capitalize">{name}</h1>
     </div>
+    <PokemonCard name={name} url={url} />
   </section>
 </MainLayout>
 
