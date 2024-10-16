@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import PokemonCard from "../../components/pokemons/PokemonCard.astro";
-import { PokemonListResponse } from "../../interfaces/pokemon-list.response";
+import type { PokemonListResponse } from "../../interfaces/pokemon-list.response";
 
 // La función getStaticPaths en Astro se utiliza para definir qué rutas dinámicas deben ser generadas de manera estática en el tiempo de compilación.
 // Similar a Next.js, pero adaptado a la forma en que Astro trabaja con el contenido estático
@@ -21,8 +21,7 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-// Acceder al parámetro dinámico 'name' desde Astro.params
-const { name } = Astro.params;
+const { name } = Astro.params; // Acceder al parámetro dinámico 'name' desde Astro.params
 const { url } = Astro.props;
 const id = url.split("/").at(-2);
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
@@ -39,7 +38,7 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
       <a href="/">Regresar</a>
       <h1 class="text-5xl capitalize">{name}</h1>
     </div>
-    <PokemonCard name={name} url={url} />
+    <PokemonCard name={name} url={url} isBig />
     <audio controls class="mt-5">
       <source src={audioSrc} type="audio/ogg" />
       Your browser does not support the audio element.

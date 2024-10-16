@@ -1,4 +1,4 @@
 export const siteInfo = {
-  title: "Pokémon Static",
+  title: "Pokemon Static",
   description: "A static site with Pokémon data",
 };
