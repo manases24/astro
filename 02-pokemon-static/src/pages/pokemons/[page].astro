@@ -28,9 +28,8 @@ const { page } = Astro.props;
   <section class="flex mt-10 gap-2 items-center">
     <a class="btn" href={page.url.prev}>Anteriores</a>
     <a class="btn" href={page.url.next}>Siguientes</a>
-    <div class="flex flex-1">
-      <span class="text-xl font-bold">Pagina: {page.currentPage}</span>
-    </div>
+    <div class="flex flex-1"></div>
+    <span class="text-xl font-bold">Pagina: {page.currentPage}</span>
   </section>
 </MainLayout>
 
