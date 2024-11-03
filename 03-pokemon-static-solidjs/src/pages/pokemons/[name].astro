@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import PokemonCard from "@components/pokemons/PokemonCard.astro";
+import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
+import Title from "@components/shared/Title.astro";
+
+// La función getStaticPaths en Astro se utiliza para definir qué rutas dinámicas deben ser generadas de manera estática en el tiempo de compilación.
+// Similar a Next.js, pero adaptado a la forma en que Astro trabaja con el contenido estático
+// https://docs.astro.build/en/reference/api-reference/#getstaticpaths
+// Con getStaticPaths creo en BUILD TIME esto argumentos dinamicos
+// Solo estas paginas van a existir, las demas daran 404
+// Definir rutas estáticas dinámicamente
+export const getStaticPaths = (async () => {
+  // Definir los nombres de los Pokémon que se generarán como rutas estáticas
+  const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+  const { results } = (await resp.json()) as PokemonListResponse;
+
+  return results.map(({ name, url }) => ({
+    params: { name: name },
+    props: { name: name, url: url },
+  }));
+}) satisfies GetStaticPaths;
+
+const { name } = Astro.params; // Acceder al parámetro dinámico 'name' desde Astro.params
+const { url } = Astro.props;
+const id = url.split("/").at(-2);
+const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
+const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+---
+
+<MainLayout
+  title={`Pokémon - #${id} ${name}`}
+  description={`Información sobre el pokémon ${name}`}
+  image={imageSrc}
+>
+  <section class="mt-10 mx-10 flex flex-col justify-center items-center">
+    <div>
+      <button class="text-blue-500" onclick="history.back()">Regresar</button>
+      <Title>{name}</Title>
+    </div>
+    <PokemonCard name={name} url={url} isBig />
+    <audio controls class="mt-5">
+      <source src={audioSrc} type="audio/ogg" />
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+</MainLayout>
+
+<style>
+  a {
+    @apply hover:underline text-blue-500;
+  }
+</style>
