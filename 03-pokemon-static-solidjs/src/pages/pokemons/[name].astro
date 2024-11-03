@@ -52,6 +52,18 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
   </section>
 </MainLayout>
 
+<script>
+  interface FavoritePokemon {
+    name: string;
+    id: number;
+  }
+  const btnFavorite = document.querySelector(
+    "#btn-favorite"
+  ) as HTMLButtonElement;
+  const name = btnFavorite.dataset.name;
+  const id = btnFavorite.dataset.id;
+</script>
+
 <style>
   a {
     @apply hover:underline text-blue-500;

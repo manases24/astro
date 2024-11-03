@@ -1,21 +1,22 @@
 ---
 import type { GetStaticPaths } from "astro";
+import type { PokemonListResponse } from "../../interfaces/pokemon-list.response";
 import MainLayout from "../../layouts/MainLayout.astro";
-import PokemonCard from "@components/pokemons/PokemonCard.astro";
-import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
 
-// La función getStaticPaths en Astro se utiliza para definir qué rutas dinámicas deben ser generadas de manera estática en el tiempo de compilación.
-// Similar a Next.js, pero adaptado a la forma en que Astro trabaja con el contenido estático
-// https://docs.astro.build/en/reference/api-reference/#getstaticpaths
-// Con getStaticPaths creo en BUILD TIME esto argumentos dinamicos
-// Solo estas paginas van a existir, las demas daran 404
-// Definir rutas estáticas dinámicamente
+// Path relativo
+// import PokemonCard from '../../components/pokemons/PokemonCard.astro';
+// Path Absoluto
+// import PokemonCard from 'src/components/pokemons/PokemonCard.astro';
+// Path Alias
+import PokemonCard from "@components/pokemons/PokemonCard.astro";
+
 export const getStaticPaths = (async () => {
   const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
   const { results } = (await resp.json()) as PokemonListResponse;
 
   return results.map(({ name, url }) => {
     const id = url.split("/").at(-2);
+
     return {
       params: { id: id },
       props: { name: name, url: url },
@@ -25,10 +26,11 @@ export const getStaticPaths = (async () => {
 
 const { id } = Astro.params;
 const { url, name } = Astro.props;
+
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
 ---
 
-<MainLayout title={` Pokemon ${name}`}>
+<MainLayout title="Algún pokémon">
   <section class="mt-10 mx-10 flex flex-col justify-center items-center">
     <div>
       <a href="/">Regresar</a>
