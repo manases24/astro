@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
 import MainLayout from "@layouts/MainLayout.astro";
 import PokemonCard from "@components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
@@ -39,6 +40,10 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
       <button class="text-blue-500" onclick="history.back()">Regresar</button>
       <Title>{name}</Title>
     </div>
+    <button id="btn-favorite" class="ml-4" data-name={name} data-id={id}>
+      <Icon data-outline name="heart-outline" size={50} />
+      <Icon data-full class="hidden" name="heart-full" size={50} />
+    </button>
     <PokemonCard name={name} url={url} isBig />
     <audio controls class="mt-5">
       <source src={audioSrc} type="audio/ogg" />
