@@ -1,23 +1,24 @@
 ---
-import BlogPost from "../components/BlogPost.astro";
-import { siteInfo } from "../consts/site-info";
-import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from 'astro:content';
+import { siteConfig } from '../config/site-config';
+import MainLayout from '../layouts/MainLayout.astro';
+import TypedBlogPost from 'src/components/TypedBlogPost.astro';
 
-const posts = await Astro.glob("./posts/*.{md,mdx}");
+const blogPosts = await getCollection('blog');
 ---
 
-<!-- https://docs.astro.build/en/guides/markdown-content/ --><!-- https://docs.astro.build/en/guides/content-collections/ -->
-<MainLayout title="Evan You Blog's">
+<MainLayout title="Fernando's Blog">
+  <!-- component -->
   <section class="bg-white dark:bg-gray-900">
     <div class="container px-6 py-10 mx-auto">
       <h1
         class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white"
       >
-        {siteInfo.title}
+        {siteConfig.title}
       </h1>
 
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        {posts.map((post) => <BlogPost {...post} />)}
+        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
       </div>
     </div>
   </section>
