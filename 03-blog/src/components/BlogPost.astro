@@ -1,4 +1,5 @@
 ---
+import { Formatter } from "@utils/formatter";
 const { frontmatter, url } = Astro.props;
 console.log(frontmatter);
 ---
@@ -19,7 +20,7 @@ console.log(frontmatter);
     </a>
 
     <span class="text-sm text-gray-500 dark:text-gray-300"
-      >{frontmatter.date}</span
+      >{Formatter.formatDate(frontmatter.date)}</span
     >
   </div>
 </div>
