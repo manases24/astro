@@ -1,37 +1,24 @@
 ---
+import BlogPost from "../components/BlogPost.astro";
+import { siteInfo } from "../consts/site-info";
 import MainLayout from "../layouts/MainLayout.astro";
+
+const posts = await Astro.glob("./posts/*.{md,mdx}");
 ---
 
 <!-- https://docs.astro.build/en/guides/markdown-content/ -->
 <MainLayout title="Evan You Blog's">
-  <section
-    class="flex flex-col items-center justify-center h-screen text-center px-4"
-  >
-    <div class="mb-6">
-      <svg
-        width="80"
-        height="80"
-        viewBox="0 0 261.76 226.69"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        class="text-green-500"
+  <section class="bg-white dark:bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+      <h1
+        class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white"
       >
-        <path
-          d="M33.85 0L130.88 160.77 227.91 0h33.85l-130.88 226.69L0 0h33.85z"
-        ></path>
-        <path
-          d="M33.85 0L130.88 160.77 227.91 0h-55.09L130.88 96.85 88.94 0H33.85z"
-        ></path>
-      </svg>
+        {siteInfo.title}
+      </h1>
+
+      <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+        {posts.map((post) => <BlogPost {...post} />)}
+      </div>
     </div>
-    <h1
-      class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
-    >
-      The Progressive <br /> JavaScript Framework
-    </h1>
-    <p class="mt-4 text-lg text-gray-300">
-      An approachable, performant and versatile framework for building web user
-      interfaces.
-    </p>
   </section>
 </MainLayout>
